@@ -6,6 +6,7 @@ export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
   const { data } = await storyblokApi.get("cdn/stories", {
+    content_type: "post",
     version: import.meta.env.DEV ? "draft" : "published",
   });
 
