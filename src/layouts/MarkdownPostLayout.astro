@@ -1,22 +1,21 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-const { frontmatter } = Astro.props;
+// @ts-ignore
 import { AstroSeo } from "@astrolib/seo";
+
+const { title, summary, coverImage, publishedDate, tags } = Astro.props;
 ---
 
 <!---
 Use AstroSeo in all the pages you want different Seo than the index page
 -->
 <AstroSeo
-  title={"Thoughtful Gay Oddyseys" +
-    (frontmatter.title ? " - " + frontmatter.title : "")}
+  title={"Thoughtful Gay Oddyseys | " + title}
   description="A collection of essays and stories by Rebekah Wardell"
   canonical="https://www.thoughtfulgayoddyseys.com"
   openGraph={{
     url: "https://www.thoughtfulgayoddyseys.com",
-    title:
-      "Thoughtful Gay Oddyseys" +
-      (frontmatter.title ? " - " + frontmatter.title : ""),
+    title: "Thoughtful Gay Oddyseys | " + title,
     description: "A collection of essays and stories by Rebekah Wardell",
     images: [
       {
@@ -50,30 +49,30 @@ Use AstroSeo in all the pages you want different Seo than the index page
       <div class="lg:text-center">
         <img
           class="lg:h-72 w-full object-cover object-center"
-          src={frontmatter.cover}
-          alt={frontmatter.title}
+          src={coverImage}
+          alt={title}
         />
         <div class="flex flex-col md:flex-row mt-4 justify-between">
           <p class="text-xs text-zinc-500">
-            {frontmatter.date.toString().slice(0, 10)} - By Rebekah Wardell
+            {publishedDate ?? new Date()} - By Rebekah Wardell
           </p>
-          <!-- <div class="flex gap-3">
-              {
-                frontmatter.tags.map((tag) => (
-                  <span class="inline-flex items-center uppercase    hover:text-blue-500   text-xs font-medium text-black">
-                    <a href={`/tags/${tag}`}>{tag}</a>
-                  </span>
-                ))
-              }
-           </div> -->
+          <div class="flex gap-3">
+            {
+              tags.map((tag) => (
+                <span class="inline-flex items-center uppercase    hover:text-blue-500   text-xs font-medium text-black">
+                  <a href={`/tags/${tag}`}>{tag}</a>
+                </span>
+              ))
+            }
+          </div>
         </div>
         <h1
           class="text-4xl tracking-tight text-balance mt-12 lg:mt-16 font-medium font-display text-black md:text-8xl"
         >
-          {frontmatter.title}
+          {title}
         </h1>
         <p class="max-w-2xl mt-8 mx-auto text-zinc-500">
-          <em>{frontmatter.description}</em>
+          <em>{summary}</em>
         </p>
       </div>
 

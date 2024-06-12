@@ -1,45 +1,20 @@
 ---
-import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
-import { getAllPosts } from "@/utilities/notion";
+import { useStoryblokApi } from "@storyblok/astro";
+import Post from "@/storyblok/Post.astro";
+
 export async function getStaticPaths() {
-  const blogEntries = await getAllPosts();
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
+  const storyblokApi = useStoryblokApi();
+
+  const { data } = await storyblokApi.get("cdn/stories", {
+    version: import.meta.env.DEV ? "draft" : "published",
+  });
+
+  return data.stories.map((blok) => ({
+    params: { slug: blok.slug },
+    props: { blok },
   }));
 }
-const { entry } = Astro.props;
+const { blok } = Astro.props;
 ---
 
-<MarkdownPostLayout frontmatter={entry}>
-  {
-    entry.content.map((content) => {
-      console.log(content.type);
-      switch (content.type) {
-        case "paragraph":
-          return content.paragraph.rich_text.map((p) => (
-            <p
-              class:list={[
-                {
-                  "font-bold": p.annotations?.bold,
-                  italic: p.annotations?.italic,
-                  underline: p.annotations?.underline,
-                  "line-through": p.annotations?.strikethrough,
-                },
-              ]}
-            >
-              {p?.text.content}
-            </p>
-          ));
-        case "heading":
-          return <h1>{content.text}</h1>;
-        case "code":
-          return <pre>{content.text}</pre>;
-        case "image":
-          return <img src={content.url} alt={content.alt} />;
-        default:
-          return null;
-      }
-    })
-  }
-</MarkdownPostLayout>
+<Post blok={blok} />
