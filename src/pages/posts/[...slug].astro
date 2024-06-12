@@ -8,7 +8,7 @@ const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   content_type: "post",
-  version: import.meta.env.DEV ? "draft" : "published",
+  version: import.meta.env.STORYBLOK_MODE,
 });
 
 const blok = data.story;
