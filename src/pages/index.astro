@@ -1,16 +1,19 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import EntriesOne from "@/components/entries/EntriesOne.astro";
 import Hero from "@/components/landing/Hero.astro";
 import Cta from "@/components/global/Cta.astro";
-import { getAllPosts } from "@/utilities/notion";
+import { useStoryblokApi } from "@storyblok/astro";
 
-const allPosts = await getAllPosts();
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get("cdn/stories", {
+  version: import.meta.env.DEV ? "draft" : "published",
+});
 
 // Sort posts by date in descending order (newest first)
-const sortedPosts = allPosts.sort(
-  (a, b) => b.date.getTime() - a.date.getTime()
+const sortedPosts = data.stories.sort(
+  (a, b) => b.publishedDate?.getTime() - a.publishedDate?.getTime()
 );
 ---
 
@@ -34,13 +37,13 @@ const sortedPosts = allPosts.sort(
           sortedPosts.map((post) => (
             <EntriesOne
               url={"/posts/" + post.slug}
-              title={post.title}
-              description={post.description}
-              alt={post.title}
-              pubDate={post.date.toString().slice(0, 10)}
+              title={post.name}
+              description={post.content.summary}
+              alt={post.name}
+              pubDate={post.publishedDate?.toString().splice(0, 10)}
               author="Rebekah Wardell"
-              image={post.cover}
-              tags={[]}
+              image={post.content.coverImage.filename}
+              tags={post.content.tags}
             />
           ))
         }
