@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import storyblok from "@storyblok/astro";
 import { loadEnv } from "vite";
+import netlify from "@astrojs/netlify";
 
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
@@ -20,8 +21,10 @@ export default defineConfig({
     skipInline: false,
     drafts: true,
   },
-  site: "https://lexingtonthemes.com",
+  site: "https://thoughtfulgayodysseys.com/",
+  output: "server",
   integrations: [
+    netlify(),
     tailwind(),
     sitemap(),
     mdx(),

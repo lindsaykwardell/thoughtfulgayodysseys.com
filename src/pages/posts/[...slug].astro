@@ -2,20 +2,15 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import Post from "@/storyblok/Post.astro";
 
-export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi();
+const slug = Astro.params.slug;
 
-  const { data } = await storyblokApi.get("cdn/stories", {
-    content_type: "post",
-    version: import.meta.env.DEV ? "draft" : "published",
-  });
+const storyblokApi = useStoryblokApi();
 
-  return data.stories.map((blok) => ({
-    params: { slug: blok.slug },
-    props: { blok },
-  }));
-}
-const { blok } = Astro.props;
+const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+  content_type: "post",
+});
+
+const blok = data.story;
 ---
 
 <Post blok={blok} />
