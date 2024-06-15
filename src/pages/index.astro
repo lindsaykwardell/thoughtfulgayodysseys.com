@@ -13,10 +13,9 @@ const { data } = await storyblokApi.get("cdn/stories", {
 
 // Sort posts by date in descending order (newest first)
 const sortedPosts = data.stories.sort(
-  (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+  (a, b) =>
+    new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
 );
-
-console.log(sortedPosts)
 
 const tags = data.stories
   .map((story) => story.content.tags)
