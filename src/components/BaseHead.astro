@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
+// @ts-ignore
 import { AstroSeo } from "@astrolib/seo";
+import { ViewTransitions } from "astro:transitions";
 ---
 <!---
 Use AstroSeo in all the pages you want different Seo than the index page
@@ -85,3 +87,4 @@ Use AstroSeo in all the pages you want different Seo than the index page
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap" rel="stylesheet">
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<ViewTransitions />

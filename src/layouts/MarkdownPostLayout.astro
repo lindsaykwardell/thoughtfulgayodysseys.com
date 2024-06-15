@@ -2,8 +2,11 @@
 import BaseLayout from "./BaseLayout.astro";
 // @ts-ignore
 import { AstroSeo } from "@astrolib/seo";
+import * as transitions from "astro:transitions";
 
 const { title, summary, coverImage, publishedDate, tags } = Astro.props;
+
+const label = title.split(" ").join("-").toLowerCase();
 ---
 
 <!---
@@ -51,9 +54,10 @@ Use AstroSeo in all the pages you want different Seo than the index page
           class="lg:h-72 w-full object-cover object-center"
           src={coverImage}
           alt={title}
+          transition:name={`${label}-image`}
         />
         <div class="flex flex-col md:flex-row mt-4 justify-between">
-          <p class="text-xs text-zinc-500">
+          <p class="text-xs text-zinc-500" transition:name={`${label}-date`}>
             {publishedDate ?? new Date()} - By Rebekah Wardell
           </p>
           <div class="flex gap-3">
@@ -67,6 +71,7 @@ Use AstroSeo in all the pages you want different Seo than the index page
           </div>
         </div>
         <h1
+          transition:name={`${label}-title`}
           class="text-4xl tracking-tight text-balance mt-12 lg:mt-16 font-medium font-display text-black md:text-8xl"
         >
           {title}

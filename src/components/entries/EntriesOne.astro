@@ -1,6 +1,8 @@
 ---
 
 const { title, url, description, pubDate, author, image, tags } = Astro.props;
+
+const label = title.split(' ').join('-').toLowerCase();
 ---
 
 <li>
@@ -11,6 +13,7 @@ const { title, url, description, pubDate, author, image, tags } = Astro.props;
           class="aspect-[2/3] object-cover bg-center h-full w-full"
           src={image}
           alt={title}
+          transition:name={`${label}-image`}
         />
       </div>
       <div
@@ -21,10 +24,10 @@ const { title, url, description, pubDate, author, image, tags } = Astro.props;
             <p class="text-xs font-medium text-black">{author}</p>
             <span aria-hidden="true">&middot;</span>
             <div class="flex text-xs text-zinc-400">
-              <time datetime="2020-03-16">{pubDate}</time>
+              <time transition:name={`${label}-date`} datetime={pubDate}>{pubDate}</time>
             </div>
           </div>
-          <p class="text-black mt-2 font-display text-xl text-pretty">
+          <p transition:name={`${label}-title`} class="text-black mt-2 font-display text-xl text-pretty">
             {title}
           </p>
         </div>
