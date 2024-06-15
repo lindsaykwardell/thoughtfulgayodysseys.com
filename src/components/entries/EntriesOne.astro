@@ -1,8 +1,9 @@
 ---
+import dayjs from "dayjs";
 
 const { title, url, description, pubDate, author, image, tags } = Astro.props;
 
-const label = title.split(' ').join('-').toLowerCase();
+const label = title.split(" ").join("-").toLowerCase();
 ---
 
 <li>
@@ -24,10 +25,15 @@ const label = title.split(' ').join('-').toLowerCase();
             <p class="text-xs font-medium text-black">{author}</p>
             <span aria-hidden="true">&middot;</span>
             <div class="flex text-xs text-zinc-400">
-              <time transition:name={`${label}-date`} datetime={pubDate}>{pubDate}</time>
+              <time transition:name={`${label}-date`} datetime={pubDate}
+                >{dayjs(pubDate).format("MMM DD, YYYY")}</time
+              >
             </div>
           </div>
-          <p transition:name={`${label}-title`} class="text-black mt-2 font-display text-xl text-pretty">
+          <p
+            transition:name={`${label}-title`}
+            class="text-black mt-2 font-display text-xl text-pretty"
+          >
             {title}
           </p>
         </div>

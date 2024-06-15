@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 // @ts-ignore
 import { AstroSeo } from "@astrolib/seo";
 import * as transitions from "astro:transitions";
+import dayjs from "dayjs";
 
 const { title, summary, coverImage, publishedDate, tags } = Astro.props;
 
@@ -58,7 +59,7 @@ Use AstroSeo in all the pages you want different Seo than the index page
         />
         <div class="flex flex-col md:flex-row mt-4 justify-between">
           <p class="text-xs text-zinc-500" transition:name={`${label}-date`}>
-            {publishedDate ?? new Date()} - By Rebekah Wardell
+            {dayjs(publishedDate).format("MMM DD, YYYY")} - By Rebekah Wardell
           </p>
           <div class="flex gap-3">
             {

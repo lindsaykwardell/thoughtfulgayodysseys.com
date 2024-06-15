@@ -13,15 +13,22 @@ const { data } = await storyblokApi.get("cdn/stories", {
 
 // Sort posts by date in descending order (newest first)
 const sortedPosts = data.stories.sort(
-  (a, b) => b.publishedDate?.getTime() - a.publishedDate?.getTime()
+  (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
 );
+
+console.log(sortedPosts)
+
+const tags = data.stories
+  .map((story) => story.content.tags)
+  .flat()
+  .filter((tag, index, self) => self.indexOf(tag) === index);
 ---
 
 <BaseLayout>
   <Hero />
   <section>
     <div class="px-8 md:px-12 mx-auto max-w-7xl py-12 lg:px-32">
-      <!-- <ol role="list" class="flex flex-wrap gap-3">
+      <ol role="list" class="flex flex-wrap gap-3">
         {
           tags.map((tag) => (
             <li class="inline-flex items-center uppercase mx-auto hover:text-blue-500 text-xs font-medium text-black">
@@ -29,7 +36,7 @@ const sortedPosts = data.stories.sort(
             </li>
           ))
         }
-      </ol> -->
+      </ol>
       <ul
         class="grid grid-cols-1 mt-12 gap-1 gap-y-24 lg:grid-cols-3 sm:grid-cols-2"
       >
@@ -40,7 +47,7 @@ const sortedPosts = data.stories.sort(
               title={post.name}
               description={post.content.summary}
               alt={post.name}
-              pubDate={post.publishedDate?.toString().splice(0, 10)}
+              pubDate={post.published_at}
               author="Rebekah Wardell"
               image={post.content.coverImage.filename}
               tags={post.content.tags}
