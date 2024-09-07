@@ -1,6 +1,24 @@
 ---
-import MarkdownPostLayout from "@/layouts/MarkdownPostLayout.astro";
-import { renderRichText } from "@storyblok/astro";
+import dayjs from "dayjs";
+import { ISbRichtext, renderRichText } from "@storyblok/astro";
+
+interface Props {
+  blok: {
+    name: string;
+    publishedAt: string;
+    content: {
+      summary: string;
+      tags: string[];
+      coverImage: {
+        filename: string;
+      };
+      sideImage: {
+        filename: string;
+      };
+      content: ISbRichtext;
+    };
+  };
+}
 
 const { blok } = Astro.props;
 
@@ -11,14 +29,58 @@ const summary = blok.content.summary;
 const publishedDate = blok.publishedAt;
 const tags = blok.content.tags;
 const coverImage = blok.content.coverImage.filename;
+const sideImage = blok.content.sideImage?.filename;
+
+const label = title.split(" ").join("-").toLowerCase();
 ---
 
-<MarkdownPostLayout
-  title={title}
-  summary={summary}
-  publishedDate={publishedDate}
-  tags={tags}
-  coverImage={coverImage}
->
-  <Fragment set:html={content} />
-</MarkdownPostLayout>
+<section>
+  <div class="px-8 py-12 md:px-12 mx-auto lg:pt-24 max-w-7xl lg:px-32">
+    <div class="grid md:grid-cols-3 gap-12">
+      <img
+        class="lg:h-72 w-full object-cover object-center rounded-full border border-black shadow-md md:col-span-2 row-start-2 md:row-start-auto"
+        src={coverImage}
+        alt={title}
+        transition:name={`${label}-image`}
+      />
+      <div
+        class="flex items-center row-start-1 md:row-start-auto justify-center"
+      >
+        <h1
+          class="tracking-tight text-balance font-medium font-display text-black text-3xl md:text-5xl text-center"
+        >
+          Thoughtful Gay Oddysseys
+        </h1>
+      </div>
+    </div>
+    <div class="md:mt-12 mx-auto">
+      <div class="grid grid-cols-3 gap-12">
+        <div class="prose-styles whitespace-pre-wrap col-span-3 md:col-span-2">
+          <div class="flex justify-center">
+            <div>
+              <Fragment set:html={content} />
+            </div>
+          </div>
+        </div>
+        {
+          sideImage && (
+            <img
+              class="side-image hidden md:block h-full w-full object-cover object-center"
+              src={sideImage}
+              alt={title}
+            />
+          )
+        }
+      </div>
+    </div>
+    <h1
+      transition:name={`${label}-title`}
+      class="text-4xl tracking-tight text-balance mt-12 lg:mt-16 font-medium font-display text-black md:text-7xl"
+    >
+      {title}
+    </h1>
+    <p class="text-xs text-zinc-500" transition:name={`${label}-date`}>
+      {dayjs(publishedDate).format("MMM DD, YYYY")} - By Rebekah Wardell
+    </p>
+  </div>
+</section>

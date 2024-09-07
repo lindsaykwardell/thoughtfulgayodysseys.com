@@ -1,4 +1,7 @@
 ---
+import BaseHead from "@/components/BaseHead.astro";
+import Navigation from "@/components/global/Navigation.astro";
+import Footer from "@/components/global/Footer.astro";
 import { useStoryblokApi } from "@storyblok/astro";
 import Post from "@/storyblok/Post.astro";
 
@@ -14,4 +17,14 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const blok = data.story;
 ---
 
-<Post blok={blok} />
+<html lang="en">
+  <head>
+    <BaseHead />
+  </head>
+  <body class="bg-white flex flex-col min-h-screen">
+    <main class="flex-grow">
+      <Post blok={blok} />
+    </main>
+    <Footer />
+  </body>
+</html>
