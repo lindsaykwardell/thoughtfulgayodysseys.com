@@ -30,6 +30,7 @@
   -webkit-mask-image: url(/images/mask.png);
   mask-image: url(/images/mask.png);
   mask-repeat: no-repeat;
+  mask-position: left;
 }
 
 .prose-styles {
