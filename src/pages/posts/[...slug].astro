@@ -1,13 +1,48 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
-import Navigation from "@/components/global/Navigation.astro";
 import Footer from "@/components/global/Footer.astro";
-import { useStoryblokApi } from "@storyblok/astro";
+import { ISbRichtext, useStoryblokApi } from "@storyblok/astro";
 import Post from "@/storyblok/Post.astro";
 
 const slug = Astro.params.slug;
 
 const storyblokApi = useStoryblokApi();
+
+type Post = {
+  name: string;
+  created_at: string;
+  published_at: string;
+  first_published_at: string;
+  id: number;
+  uuid: string;
+  content: {
+    _uid: string;
+    tags: string[];
+    content: ISbRichtext;
+    summary: string;
+    component: "post";
+    sideImage: {
+      id: number;
+      filename: string;
+    };
+    coverImage: {
+      id: number;
+      filename: string;
+    };
+  };
+  slug: string;
+  full_slug: string;
+};
+
+const {
+  data: allPosts,
+}: {
+  data: {
+    stories: Post[];
+  };
+} = await storyblokApi.get("cdn/stories", {
+  version: import.meta.env.STORYBLOK_MODE,
+});
 
 const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   content_type: "post",
@@ -15,19 +50,64 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 });
 
 const blok = data.story;
+
+const postsByYear = allPosts.stories
+  .filter((post) => post.content.tags?.includes(blok.name))
+  .toSorted(
+    (a, b) =>
+      new Date(b.first_published_at ?? b.created_at).getTime() -
+      new Date(a.first_published_at ?? a.created_at).getTime()
+  )
+  .reduce(
+    (byYear, post) => {
+      const year = new Date(post.first_published_at ?? post.created_at)
+        .getFullYear()
+        .toString();
+      if (!byYear[year]) {
+        byYear[year] = [];
+      }
+
+      byYear[year].push(post);
+
+      return byYear;
+    },
+    {} as { [key: string]: Post[] }
+  );
+
+const backToTitle = allPosts.stories.find(
+  (post) => post.name.includes(blok.content?.tags?.[0])
+)?.name || "Home";
+
+const backToUrl = allPosts.stories.find(
+  (post) => post.name.includes(blok.content?.tags?.[0])
+)?.slug || "/";
 ---
 
 <html lang="en">
   <head>
     <BaseHead />
   </head>
-  <body class="bg-gradient-to-b from-[#FCAB20] to-white flex flex-col min-h-screen">
-    <a href="/" class="p-4">
-      ← Back to home
-    </a>
+  <body
+    class="bg-gradient-to-b from-[#FCAB20] to-white flex flex-col min-h-screen"
+  >
+    <a href={backToUrl} class="p-4"> ← Back to {backToTitle} </a>
     <main class="flex-grow">
       <Post blok={blok} />
     </main>
+    <ul id="posts" class="pb-7 m-auto">
+      {Object.entries(postsByYear).toSorted((a,b) => +b[0] - +a[0]).map(([year, posts]) => (
+          <li transition:name={year} class="font-title text-2xl text-stone-800 py-8 pl-8">{year}</li>
+          <ul class="flex flex-col gap-7 lg:gap-2 px-2 md:px-0">
+              {posts.map(post => (
+                  <li transition:name={`${post.slug}-name`} class="text-lg md:text-xl grid grid-cols-2 lg:grid-cols-8 gap-2 lg:gap-7 items-center">
+                      <a href={`/posts/${post.slug}`} class="col-span-2 lg:col-span-6 hover:underline">{post.name}</a>
+                      <time class="text-sm text-stone-800">{Intl.DateTimeFormat('en-us').format(new Date(post.first_published_at ?? post.created_at))}</time>
+                      {post.content.tags.length > 0 && <a href={`/tags/${post.content.tags[0]}`} class={`rounded-lg bg-[#F56438] text-stone-950 text-sm px-2 py-1 text-center`}>{post.content.tags[0]}</a>}
+                  </li>
+              ))}
+          </ul>
+      ))}
+    </ul>
     <Footer />
   </body>
 </html>

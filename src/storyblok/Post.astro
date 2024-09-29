@@ -28,7 +28,7 @@ const title = blok.name;
 const summary = blok.content.summary;
 const publishedDate = blok.publishedAt;
 const tags = blok.content.tags;
-const coverImage = blok.content.coverImage.filename;
+const coverImage = blok.content.coverImage?.filename;
 const sideImage = blok.content.sideImage?.filename;
 
 const label = title.split(" ").join("-").toLowerCase();
