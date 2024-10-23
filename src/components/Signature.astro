@@ -1,0 +1,27 @@
+---
+import Avatar from "./Avatar.astro";
+import SocialLinks from "./SocialLinks.astro";
+---
+
+<section
+  class="flex flex-col sm:flex-row md:h-screen justify-center items-center max-w-[1000px] m-auto gap-7 p-7"
+>
+  <Avatar />
+  <div class="flex flex-col gap-7 flex-shrink">
+    <div>
+      <h1 class="text-3xl md:text-5xl">Rebekah M. Wardell</h1>
+      <p class="text-lg md:text-xl">
+        is the author of numerous scribbly journals, none of which will see the
+        light of day. When they are not writing, you could find them reading,
+        hiking, and laughing with their family in the parks and woods of the
+        PNW.
+      </p>
+    </div>
+    <div class="m-auto md:m-0">
+      <slot />
+    </div>
+    <div class="flex justify-center">
+      <SocialLinks class="max-w-[250px]" />
+    </div>
+  </div>
+</section>

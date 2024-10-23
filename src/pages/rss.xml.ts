@@ -28,34 +28,28 @@ type Post = {
 };
 
 export async function GET() {
-  // const storyblokApi = useStoryblokApi();
+  const storyblokApi = useStoryblokApi();
 
-  // const {
-  //   data,
-  // }: {
-  //   data: {
-  //     stories: Post[];
-  //   };
-  // } = await storyblokApi.get("cdn/stories", {
-  //   version: import.meta.env.STORYBLOK_MODE,
-  // });
+  const data: Post[] = await storyblokApi.getAll("cdn/stories", {
+    version: import.meta.env.STORYBLOK_MODE,
+  });
 
-  // const posts = data.stories.toSorted(
-  //   (a, b) =>
-  //     new Date(b.published_at ?? b.created_at).getTime() -
-  //     new Date(a.published_at ?? a.created_at).getTime()
-  // );
+  const posts = data.toSorted(
+    (a, b) =>
+      new Date(b.published_at ?? b.created_at).getTime() -
+      new Date(a.published_at ?? a.created_at).getTime()
+  );
 
-  // return rss({
-  //   title: "Thoughtful Gay Odysseys",
-  //   description: "Poetry by Rebekah Wardell",
-  //   site: "https://thoughtfulgayodysseys.com",
-  //   items: posts.map((post) => ({
-  //     title: post.name,
-  //     pubDate: new Date(post.published_at ?? post.created_at),
-  //     description: post.content.summary,
-  //     link: `/posts/${post.slug}/`,
-  //   })),
-  //   customData: `<language>en-us</language>`,
-  // });
+  return rss({
+    title: "Thoughtful Gay Odysseys",
+    description: "Poetry by Rebekah Wardell",
+    site: "https://thoughtfulgayodysseys.com",
+    items: posts.map((post) => ({
+      title: post.name,
+      pubDate: new Date(post.published_at ?? post.created_at),
+      description: post.content.summary,
+      link: `/posts/${post.slug}/`,
+    })),
+    customData: `<language>en-us</language>`,
+  });
 }
