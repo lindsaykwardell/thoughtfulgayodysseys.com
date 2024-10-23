@@ -7,11 +7,11 @@ const { size } = Astro.props;
 
 const borderSize = (() => {
     switch (size) {
-        case 'lg':
-            return "w-[350px] md:w-[450px] h-[350px] md:h-[450px]"
+        case 'md':
+            return "w-[120px] md:w-[200px] h-[120px] md:h-[200px]"
         case 'sm':
             return "w-[60px] md:w-[85px] h-[60px] md:h-[85px]"
-        case 'md':
+        case 'lg':
         default:
             return "w-[250px] md:w-[350px] h-[250px] md:h-[350px]";
     }
@@ -19,11 +19,11 @@ const borderSize = (() => {
 
 const imageSize = (() => {
     switch (size) {
-        case 'lg':
-            return "w-[300px] md:w-[400px] h-[300px] md:h-[400px]"
+        case 'md':
+            return "w-[100px] md:w-[180px] h-[100px] md:h-[180px]"
         case 'sm':
             return "w-[50px] md:w-[75px] h-[50px] md:h-[75px]"
-        case 'md':
+        case 'lg':
         default:
             return "w-[200px] md:w-[300px] h-[200px] md:h-[300px]";
     }

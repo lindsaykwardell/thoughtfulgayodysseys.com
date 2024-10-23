@@ -3,6 +3,7 @@ import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/global/Footer.astro";
 import { ISbRichtext, useStoryblokApi } from "@storyblok/astro";
 import Post from "@/storyblok/Post.astro";
+import Signature from "@/components/Signature.astro";
 
 const slug = Astro.params.slug;
 
@@ -102,6 +103,7 @@ const backToUrl = allPosts.find(
           </ul>
       ))}
     </ul>
+    <Signature avatarSize="md" />
     <Footer />
   </body>
 </html>

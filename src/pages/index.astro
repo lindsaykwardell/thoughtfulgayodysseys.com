@@ -16,74 +16,74 @@ import Signature from "@/components/Signature.astro";
     </div>
   </section>
 
-  <section id="poem" class="whitespace-pre-wrap text-xl md:text-3xl text-center flex flex-col gap-[80vh] mt-60 font-extralight">
-    <p>I lean into 
-      this unknown ether</p>
-    
-    <p>palms cupped 
-      around sweating truths
-      breath unstrung</p>
-    
-    <p>Listening to the howl
-      inside my ribs,
-      I say to myself,</p>
-    
+  <section
+    id="poem"
+    class="whitespace-pre-wrap text-xl md:text-3xl text-center flex flex-col gap-[80vh] mt-60 pb-40 font-extralight"
+  >
+    <p>I lean into this unknown ether</p>
+
+    <p>palms cupped around sweating truths breath unstrung</p>
+
+    <p>Listening to the howl inside my ribs, I say to myself,</p>
+
     <p>"I am scared,"</p>
-    
+
     <p>and</p>
-    
+
     <p>"I am alive.”</p>
-    
-     <p>Perhaps
-      that is enough.</p>
+
+    <p>Perhaps that is enough.</p>
   </section>
-  <Signature />
+  <Signature>
+    <div class="flex justify-center text-lg"><a class="underline" href="/posts">View Posts</a></div>
+  </Signature>
   <!-- <Cta /> -->
 </BaseLayout>
 
 <script>
-const elementsToLoadIn = document.querySelectorAll("#poem p");
-const posts = document.querySelector("#posts");
+  const elementsToLoadIn = document.querySelectorAll("#poem p");
+  const posts = document.querySelector("#posts");
 
-// elementsToLoadIn.forEach((el) => {
-//  el.classList.add('loadin');
-// });
+  // elementsToLoadIn.forEach((el) => {
+  //  el.classList.add('loadin');
+  // });
 
-const observerOptions = {
- root: null,
- rootMargin: '0px',
- threshold: 1,
-};
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  };
 
-function observerCallback(entries) {
- entries.forEach((entry) => {
-  if (entry.isIntersecting) {
-   entry.target.classList.add('loaded');
+  function observerCallback(entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("loaded");
+      }
+    });
   }
- });
-}
 
-const observer = new IntersectionObserver(observerCallback, observerOptions);
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-setTimeout(() => {
-  elementsToLoadIn.forEach((el) => observer.observe(el));
-  observer.observe(posts);
-}, 500);
-
+  setTimeout(() => {
+    elementsToLoadIn.forEach((el) => observer.observe(el));
+    observer.observe(posts);
+  }, 500);
 </script>
 
 <style scoped>
-#poem {
-  p {
-  opacity: 0;
-  transform: translateY(45px);
-  transition: transform 1s, opacity 0.9s;
+  #poem {
+    p {
+      opacity: 0;
+      transform: translateY(45px);
+      transition:
+        transform 1s,
+        opacity 0.9s;
 
-  &.loaded {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0s;
+      &.loaded {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0s;
+      }
+    }
   }
-}
-}
 </style>
