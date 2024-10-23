@@ -49,6 +49,7 @@ export async function GET() {
       pubDate: new Date(post.published_at ?? post.created_at),
       description: post.content.summary,
       link: `/posts/${post.slug}/`,
+      content: post.content.content.text,
     })),
     customData: `<language>en-us</language>`,
   });
