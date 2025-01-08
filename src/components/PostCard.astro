@@ -1,0 +1,47 @@
+---
+interface Props {
+  img?: string;
+  url: string;
+}
+
+const { img, url } = Astro.props;
+---
+
+<div>
+  <a href={url}>
+    <div class="text-2xl lg:text-3xl text-center px-3 whitespace-nowrap">
+      <slot name="title" />
+    </div>
+    {
+      img && (
+        <div class="border-2 border-borgonha rounded-lg rounded-tl-3xl rounded-br-3xl shadow-lg p-2 overflow-hidden">
+          <img
+            src={img}
+            class="card-image border border-borgonha rounded-lg rounded-tl-3xl rounded-br-3xl"
+          />
+        </div>
+      )
+    }
+  </a>
+  <section class="p-4">
+    <slot />
+  </section>
+</div>
+
+<style scoped>
+  .card-image {
+    @apply transition duration-500;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+    &:hover {
+      transform: scale(1.1);
+      filter: blur(0);
+    }
+  }
+
+  section >>> p:not(.text-sm) {
+    @apply text-lg py-3;
+  }
+</style>
