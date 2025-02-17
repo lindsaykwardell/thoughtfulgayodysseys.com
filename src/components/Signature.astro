@@ -4,13 +4,14 @@ import SocialLinks from "./SocialLinks.astro";
 
 interface Props {
   avatarSize?: "sm" | "md" | "lg";
+  class?: string;
 }
 
-const { avatarSize } = Astro.props;
+const { avatarSize, class: _class } = Astro.props;
 ---
 
 <section
-  class="flex flex-col sm:flex-row justify-center items-center max-w-[1000px] m-auto gap-7 p-7"
+  class={"flex flex-col sm:flex-row justify-center items-center max-w-[1000px] gap-7" + (_class ? " " + _class : "")}
 >
   <Avatar size={avatarSize} />
   <div class="flex flex-col gap-7 flex-shrink">
