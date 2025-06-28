@@ -17,7 +17,7 @@ const { hideFooter } = Astro.props;
   <body
     class="bg-gradient-to-b to-[#FCAB20] from-white flex flex-col min-h-screen"
   >
-    <main class="flex-grow"><slot /></main>
+    <main class="flex-grow p-6"><slot /></main>
     {!hideFooter && <Footer />}
   </body><!-- Analytics -->
   <script

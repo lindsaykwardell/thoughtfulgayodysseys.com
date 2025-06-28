@@ -3,6 +3,7 @@ import PostCard from "@/components/PostCard.astro";
 import Signature from "@/components/Signature.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { ISbRichtext, useStoryblokApi } from "@storyblok/astro";
+import Cta from "@/components/global/Cta.astro";
 
 const storyblokApi = useStoryblokApi();
 
@@ -69,7 +70,7 @@ const postsByYear = data
 ---
 
 <BaseLayout>
-  <ul id="posts" class="w-full max-w-[1400px] m-auto">
+  <ul id="posts" class="w-full max-w-[1400px] p-6 m-auto">
     {Object.entries(postsByYear).toSorted((a,b) => +b[0] - +a[0]).map(([year, posts]) => (
         <li transition:name={year} class="font-title text-2xl text-stone-800 py-8 pl-8">{year}</li>
         <ul class="flex flex-row flex-wrap">
@@ -93,7 +94,8 @@ const postsByYear = data
         </ul>
     ))}
   </ul>
-  <Signature avatarSize="md" class="m-auto" />
+  <Signature avatarSize="md" class="m-auto p-6" />
+  <Cta />
 </BaseLayout>
 
 <style scoped>
