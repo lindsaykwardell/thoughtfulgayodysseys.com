@@ -19,6 +19,7 @@ const { avatarSize, class: _class } = Astro.props;
     <Avatar size={avatarSize} />
   </div>
   <div class="flex flex-col gap-7 flex-shrink">
+    <slot name="bio" />
     <div class="flex flex-col gap-4">
       <h1 class="text-3xl md:text-5xl text-center">R.M. Wardell</h1>
       <p class="md:text-lg">
