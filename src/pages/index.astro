@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Signature from "@/components/Signature.astro";
 import Footer from "@/components/global/Footer.astro";
 import Cta from "@/components/global/Cta.astro";
+import ReviewDialog from "@/components/ReviewDialog.astro";
 ---
 
 <BaseLayout hideFooter>
@@ -58,23 +59,46 @@ import Cta from "@/components/global/Cta.astro";
                   alt="Held cover"
                   class="rounded-lg"
                 />
-                <a
-                  href="https://shop.ingramspark.com/b/084?params=f1eVu7qWWZCoe3cm4iF97HFZRxlOaO4ZMXNy8YhQJcy"
-                  class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-violet-500 to-violet-600 text-white font-medium rounded-lg shadow-lg hover:from-violet-600 hover:to-violet-700 transform hover:scale-105 transition-all duration-200 hover:shadow-xl gap-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    ><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
-                    <path
-                      fill="currentColor"
-                      d="M15.5 14V3l3-1v11zm-9 2q1.175 0 2.313.275T11 17.05V7.2q-1.025-.6-2.162-.9T6.5 6q-.9 0-1.787.175T3 6.7v9.9q.85-.3 1.725-.45T6.5 16m14.5.6V4.575q.525.2 1.025.425t.975.55v14.5q-1.175-.975-2.575-1.513T17.5 18q-1.5 0-2.9.525T12 20q-1.2-.95-2.6-1.475T6.5 18q-1.525 0-2.925.538T1 20.05V5.55q1.2-.825 2.613-1.187T6.5 4q1.75 0 3.388.575T13 6.1v10.95q1.05-.5 2.188-.775T17.5 16q.9 0 1.775.15T21 16.6M7 11.525"
-                    ></path></svg
+                <div class="flex flex-col gap-2">
+                  <a
+                    href="https://shop.ingramspark.com/b/084?params=f1eVu7qWWZCoe3cm4iF97HFZRxlOaO4ZMXNy8YhQJcy"
+                    class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-violet-500 to-violet-800 text-white font-bold rounded-lg shadow-lg hover:from-violet-600 hover:to-violet-900 transform hover:scale-105 transition-all duration-200 hover:shadow-xl gap-2"
                   >
-                  <span>Order Now!</span>
-                </a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      ><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
+                      <path
+                        fill="currentColor"
+                        d="M15.5 14V3l3-1v11zm-9 2q1.175 0 2.313.275T11 17.05V7.2q-1.025-.6-2.162-.9T6.5 6q-.9 0-1.787.175T3 6.7v9.9q.85-.3 1.725-.45T6.5 16m14.5.6V4.575q.525.2 1.025.425t.975.55v14.5q-1.175-.975-2.575-1.513T17.5 18q-1.5 0-2.9.525T12 20q-1.2-.95-2.6-1.475T6.5 18q-1.525 0-2.925.538T1 20.05V5.55q1.2-.825 2.613-1.187T6.5 4q1.75 0 3.388.575T13 6.1v10.95q1.05-.5 2.188-.775T17.5 16q.9 0 1.775.15T21 16.6M7 11.525"
+                      ></path></svg
+                    >
+                    <span>Order Now!</span>
+                  </a>
+                  <button
+                    onclick="openReviewDialog()"
+                    class="inline-flex items-center justify-center text-sm px-6 py-2 bg-gradient-to-r from-sky-600 to-sky-900 text-white font-medium rounded-lg shadow-lg hover:from-sky-700 hover:to-sky-950 transform hover:scale-105 transition-all duration-200 hover:shadow-xl gap-2"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                      ></path>
+                    </svg>
+                    <span>Write a Review</span>
+                  </button>
+                </div>
               </div>
               <div class="w-full md:w-2/3 prose-styles">
                 <p class="text-center text-base">
@@ -117,6 +141,7 @@ import Cta from "@/components/global/Cta.astro";
     </div>
     <Cta />
     <Footer />
+    <ReviewDialog />
   </div>
 
   <style scoped>
