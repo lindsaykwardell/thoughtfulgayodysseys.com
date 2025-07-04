@@ -106,12 +106,6 @@
         </button>
         <button type="submit" class="btn-primary"> Submit Review </button>
       </div>
-      <div class="form-success">
-        <p>Thank you for your review!</p>
-      </div>
-      <div class="form-error">
-        <p>Something went wrong. Please try again.</p>
-      </div>
     </form>
   </div>
 </dialog>
@@ -159,50 +153,6 @@
       }, 200);
     }
   }
-
-  // Handle form submission
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("review-form") as HTMLFormElement;
-    if (form) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const formError = form.querySelector(".form-error") as HTMLElement;
-        const formSuccess = form.querySelector(".form-success") as HTMLElement;
-        if (formError) formError.style.display = "none";
-        if (formSuccess) formSuccess.style.display = "none";
-
-        const formData = new FormData(form);
-
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(
-            formData as unknown as Record<string, string>
-          ).toString(),
-        })
-          .then(() => {
-            form.disabled = true;
-            if (formSuccess) formSuccess.style.display = "block";
-            if (formError) formError.style.display = "none";
-          })
-          .catch((error) => {
-            if (formError) formError.style.display = "block";
-            if (formSuccess) formSuccess.style.display = "none";
-          });
-      });
-    }
-
-    // Close dialog when clicking outside
-    const dialog = document.getElementById("review-dialog");
-    if (dialog) {
-      dialog.addEventListener("click", function (e) {
-        if (e.target === dialog) {
-          closeReviewDialog();
-        }
-      });
-    }
-  });
 
   // Catch when someone presses escape to close the dialog
   document.addEventListener("keydown", function (e) {
@@ -422,27 +372,5 @@
     .btn-secondary {
       width: 100%;
     }
-  }
-
-  .form-success {
-    display: none;
-    background: #dcfce7;
-    border: 1px solid #22c55e;
-    color: #166534;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  .form-error {
-    display: none;
-    background: #fef2f2;
-    border: 1px solid #ef4444;
-    color: #991b1b;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    text-align: center;
   }
 </style>
