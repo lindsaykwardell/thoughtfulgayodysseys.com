@@ -3,6 +3,7 @@ import PostCard from "@/components/PostCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { ISbRichtext, useStoryblokApi } from "@storyblok/astro";
 
+export const prerender = false;
 const storyblokApi = useStoryblokApi();
 const tag = Astro.params.tag;
 

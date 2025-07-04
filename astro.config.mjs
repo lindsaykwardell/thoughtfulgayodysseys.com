@@ -22,7 +22,7 @@ export default defineConfig({
     drafts: true,
   },
   site: "https://thoughtfulgayodysseys.com/",
-  output: "server",
+  output: "hybrid",
   adapter: netlify(),
   integrations: [
     tailwind(),
