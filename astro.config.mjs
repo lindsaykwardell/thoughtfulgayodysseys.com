@@ -22,8 +22,7 @@ export default defineConfig({
     drafts: true,
   },
   site: "https://thoughtfulgayodysseys.com/",
-  output: "server",
-  adapter: netlify(),
+  output: "static",
   integrations: [
     tailwind(),
     sitemap(),
