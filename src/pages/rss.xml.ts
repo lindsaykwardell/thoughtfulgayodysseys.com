@@ -42,7 +42,7 @@ export async function GET() {
 
   return rss({
     title: "Thoughtful Gay Odysseys",
-    description: "Poetry by R. M. Wardell",
+    description: "Poetry and prose by R.M. Wardell",
     site: "https://thoughtfulgayodysseys.com",
     items: posts.map((post) => ({
       title: post.name,

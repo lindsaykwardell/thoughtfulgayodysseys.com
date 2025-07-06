@@ -1,6 +1,5 @@
 ---
 import Avatar from "./Avatar.astro";
-import SocialLinks from "./SocialLinks.astro";
 
 interface Props {
   avatarSize?: "sm" | "md" | "lg";
@@ -41,9 +40,6 @@ const { avatarSize, class: _class } = Astro.props;
     </div>
     <div class="m-auto md:m-0">
       <slot />
-    </div>
-    <div class="flex justify-center">
-      <SocialLinks class="max-w-[250px]" />
     </div>
   </div>
 </section>
