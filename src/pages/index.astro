@@ -31,19 +31,23 @@ import ReviewDialog from "@/components/ReviewDialog.astro";
             slot="avatar"
           >
             <div class="circle"></div>
-            <p>I lean into this unknown ether</p>
+            <p>One of the most courageous</p>
 
-            <p>palms cupped around sweating truths</p>
+            <p>gifts we can offer ourselves</p>
 
-            <p>breath unstrung</p>
+            <p>is to sit</p>
 
-            <p>Listening to the howl inside my ribs,</p>
+            <p>within our bodies</p>
 
-            <p>I say to myself, "I am scared,"</p>
+            <p>and listen</p>
 
-            <p>and, "I am alive."</p>
+            <p>to the howl</p>
 
-            <p>Perhaps that is enough.</p>
+            <p>of emotions</p>
+
+            <p>as they echo</p>
+
+            <p>inside our ribs.</p>
           </section>
 
           <section slot="bio" class="flex flex-col gap-6 py-12">
@@ -125,7 +129,7 @@ import ReviewDialog from "@/components/ReviewDialog.astro";
                   This collection of poems depicts R.M.'s journey to become more
                   embodied, release the pain, feel alive, and answer questions
                   that had been lingering since childhood. Readers will follow
-                  as R.M. explores different parts of themself, and how their
+                  as R.M. explores different emotional parts of themself, and how their
                   body responds to love and compassion instead of dissociation
                   and fear.
                 </p>
@@ -146,14 +150,21 @@ import ReviewDialog from "@/components/ReviewDialog.astro";
 
   <style scoped>
     #poem {
-      .circle {
-        width: 300px;
-        height: 224px;
-        float: right;
-        shape-outside: ellipse(157px 102px at 134.67% 50.19%);
+      /* desktop media queries only */
+      @media (min-width: 768px) {
+        .circle {
+          width: 209px;
+          height: 291px;
+          float: right;
+          shape-outside: ellipse(157px 102px at 134.67% 50.19%);
+        }
+
+        text-align: right;
       }
 
-      text-align: right;
+      @media (max-width: 768px) {
+        text-align: center;
+      }
     }
   </style>
 </BaseLayout>
